@@ -10,12 +10,10 @@ alias ls='ls --color=auto'
 alias resolve='QT_QPA_PLATFORM=xcb /opt/resolve/bin/resolve'
 alias chypr='nano ~/.config/hypr/hyprland.conf'
 alias ll='ls -alF'
-alias update='sudo pacman -Syu && yay -Syu'
 export WLR_DRM_NO_ATOMIC=1
 export MOZ_ENABLE_WAYLAND=1
 export GTK_FONT_NAME="Hack Regular 13"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="/home/rupan/matlab/bin:$PATH"
 export QT_QPA_PLATFORM=xcb
 export MANPAGER='nvim +Man!'
 
