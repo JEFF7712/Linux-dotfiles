@@ -1,0 +1,109 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "spacing": 5,
+
+    "modules-left": ["hyprland/workspaces", "temperature", "custom/hyprsunset", "power-profiles-daemon"],
+    "modules-center": ["clock"],
+    "modules-right": ["wireplumber", "battery", "backlight", "network", "bluetooth", "tray"],
+
+
+
+    "custom/hyprsunset": {
+   	"return-type": "json",
+   	"exec": "~/.local/bin/hyprsunset_waybar status",
+   	"on-click": "~/.local/bin/hyprsunset_waybar toggle",
+	"interval": 5,
+   	},
+    "hyprland/workspaces": {
+        "format": "<span size='larger'>{icon}</span>",
+        "on-click": "activate",
+        "format-icons": {
+            "active": "\uf444",
+            "default": "\uf4c3"
+        },
+        "icon-size": 10,
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+        }
+    },
+
+    "power-profiles-daemon": {
+        "format": "{profile}",
+        "tooltip-format": "Power profile: {icon} ",
+        "tooltip": true,
+        "format-icons": {
+        "default": "",
+        "performance": "",
+        "balanced": "",
+        "power-saver": ""
+        }
+    },
+
+
+    "clock": {
+        "format": "{:%B %d | %I:%M %p}",
+        "tooltip-format": "{:%m/%d/%Y}",
+        "on-click": "kitty date",
+    },
+
+    "wireplumber": {
+        "format": "\udb81\udd7e  {volume}%",
+        "format-muted": "  {volume}%",
+        "max-volume": 100,
+        "scroll-step": 1,
+        "on-click": "pavucontrol",
+    },
+
+     "battery": {
+       "bat": "BAT0",
+       "interval": 60,
+       "format": "{icon}  {capacity}%",
+       "format-icons": ["\uf244", "\uf243", "\uf242", "\uf241", "\uf240"],
+       "on-click": "/home/rupan/.config/rofi/applets/bin/battery.sh",
+  
+    },
+
+    "backlight": {
+        "format": "\udb80\udcdf  {percent}%"
+    },
+
+    "temperature": {
+        "format": "  {temperatureC}°C",
+        "on-click": "/home/rupan/.config/rofi/powermenu/type-2/powermenu.sh",
+    },
+
+    "network": {
+        "format": "",
+        "format-ethernet": "\udb83\udc9d",
+        "format-wifi": "{icon}",
+        "format-disconnected": "\udb83\udc9c",
+        "format-icons": ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ifname}",
+        "tooltip-format-disconnected": "Disconnected",
+        "on-click": "kitty nmtui",
+    },
+
+    "bluetooth": {
+        "format": "\udb80\udcaf",
+        "format-disabled": "\udb80\udcb2",
+        "format-connected": "\udb80\udcb1",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click": "blueman-manager",
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 16
+    }
+}
+
