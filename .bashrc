@@ -18,19 +18,3 @@ export QT_QPA_PLATFORM=xcb
 export MANPAGER='nvim +Man!'
 
 PS1='[\u@\h \W]\$ '
-
-# >>> juliaup initialize >>>
-
-# !! Contents within this block are managed by juliaup !!
-
-case ":$PATH:" in
-    *:/home/rupan/.juliaup/bin:*)
-        ;;
-
-    *)
-        export PATH=/home/rupan/.juliaup/bin${PATH:+:${PATH}}
-        ;;
-esac
-
-# <<< juliaup initialize <<<
-export PATH="/opt/anaconda/bin:$PATH"
