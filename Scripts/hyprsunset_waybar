@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Usage: hyprsunset_waybar [status|toggle]
+
+TEMP="${HYPRSUNSET_TEMP:-5000}"
+
+have_builtin() { hyprctl hyprsunset 2>&1 | grep -qiE 'usage|enable|disable|toggle|temp'; }
+have_cli()     { command -v hyprsunset >/dev/null; }
+
+is_on() {
+  if have_builtin; then
+    hyprctl hyprsunset 2>/dev/null | grep -qi 'enabled: true' && return 0 || return 1
+  elif have_cli; then
+    pgrep -x hyprsunset >/dev/null && return 0 || return 1
+  else
+    return 1
+  fi
+}
+
+do_on() {
+  if have_builtin; then
+    hyprctl hyprsunset enable "$TEMP" 2>/dev/null || \
+    hyprctl hyprsunset on "$TEMP" 2>/dev/null   || \
+    hyprctl hyprsunset "$TEMP" 2>/dev/null
+  elif have_cli; then
+    pkill -x hyprsunset >/dev/null 2>&1
+    nohup hyprsunset -t "$TEMP" >/dev/null 2>&1 &
+  fi
+}
+
+do_off() {
+  if have_builtin; then
+    hyprctl hyprsunset disable 2>/dev/null || hyprctl hyprsunset off 2>/dev/null
+  elif have_cli; then
+    pkill -x hyprsunset >/dev/null 2>&1
+  fi
+}
+
+case "${1:-status}" in
+  toggle)
+    if is_on; then do_off; else do_on; fi
+    ;;
+esac
+
+# output for Waybar JSON
+if is_on; then
+  echo "{\"text\":\"\",\"tooltip\":\"Hyprsunset on (${TEMP}K)\",\"class\":\"on\"}"
+else
+  echo "{\"text\":\"\",\"tooltip\":\"Hyprsunset off\",\"class\":\"off\"}"
+fi
